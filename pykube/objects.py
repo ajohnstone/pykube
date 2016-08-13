@@ -95,6 +95,15 @@ class APIObject(object):
         if r.status_code != 404:
             self.api.raise_for_status(r)
 
+    @property
+    def ready(self):
+        try:
+            return (
+                self.obj["status"]["observedGeneration"] >= self.obj["metadata"]["generation"]
+            )
+        except KeyError as e:
+            raise  NotImplementedError(e)
+
 
 class NamespacedAPIObject(APIObject):
 
@@ -127,14 +136,6 @@ class Deployment(NamespacedAPIObject, ReplicatedMixin, ScalableMixin):
     version = "extensions/v1beta1"
     endpoint = "deployments"
     kind = "Deployment"
-
-    @property
-    def ready(self):
-        return (
-            self.obj["status"]["observedGeneration"] >= self.obj["metadata"]["generation"] and
-            self.obj["status"]["updatedReplicas"] == self.replicas
-        )
-
 
 class Endpoint(NamespacedAPIObject):
 

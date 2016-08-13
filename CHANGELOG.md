@@ -13,6 +13,7 @@
   * `HorizontalPodAutoscaler`
 * `KubeConfig` learned to handle empty or missing user configuration
 * `HTTPClient` learned to create an HTTP session with no authentication
+* ready supported on all objects if exposed by the kubernetes api
 
 ### Bug fixes
 
