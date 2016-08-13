@@ -102,7 +102,7 @@ class APIObject(object):
                 self.obj["status"]["observedGeneration"] >= self.obj["metadata"]["generation"]
             )
         except KeyError as e:
-            raise  NotImplementedError(e)
+            raise NotImplementedError(e)
 
 
 class NamespacedAPIObject(APIObject):
@@ -136,6 +136,7 @@ class Deployment(NamespacedAPIObject, ReplicatedMixin, ScalableMixin):
     version = "extensions/v1beta1"
     endpoint = "deployments"
     kind = "Deployment"
+
 
 class Endpoint(NamespacedAPIObject):
 
